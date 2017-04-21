@@ -18,3 +18,5 @@
 /system/bin/rmt_oeminfo                                    u:object_r:oeminfo_exec:s0
 /system/bin/signinfolistener                               u:object_r:signinfolistener_exec:s0
 /system/bin/teecd                                          u:object_r:tee_exec:s0
+
+/system/etc/init\.qcom\.bt\.sh                             u:object_r:bluetooth_loader_exec:s0
