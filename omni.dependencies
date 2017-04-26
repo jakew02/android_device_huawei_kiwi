@@ -24,8 +24,8 @@
     "revision": "android-7.1"
   },
     {
-    "remote": "omnirom",
-    "repository": "android_kernel_huawei_kiwi",
+    "remote": "github",
+    "repository": "jakew02/android_kernel_huawei_kiwi",
     "target_path": "kernel/huawei/kiwi",
     "revision": "android-7.1"
   },
