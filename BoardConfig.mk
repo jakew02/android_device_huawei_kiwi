@@ -42,6 +42,8 @@ TARGET_OTA_ASSERT_DEVICE := kiwi
 # Kernel
 BOARD_KERNEL_BASE := 0x80000000
 BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom msm_rtb.filter=0x237 ehci-hcd.park=3 androidboot.bootdevice=7824900.sdhci lpm_levels.sleep_disabled=1 earlyprintk
+BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
+BOARD_KERNEL_IMAGE_NAME := Image
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_KERNEL_SEPARATED_DT := true
 BOARD_DTBTOOL_ARGS := -2
@@ -51,7 +53,6 @@ TARGET_KERNEL_SOURCE := kernel/huawei/kiwi
 TARGET_KERNEL_ARCH := arm64
 TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-linux-android-
 TARGET_KERNEL_HEADER_ARCH := arm64
-TARGET_USES_UNCOMPRESSED_KERNEL := true
 TARGET_KERNEL_CONFIG := kiwi-64_defconfig
 
 # Audio
@@ -77,12 +78,6 @@ TARGET_USES_MEDIA_EXTENSIONS := true
 # Charger
 BOARD_CHARGER_DISABLE_INIT_BLANK := true
 BACKLIGHT_PATH := /sys/class/leds/lcd-backlight/brightness
-
-# CM Hardware
-BOARD_HARDWARE_CLASS += \
-    hardware/cyanogen/cmhw \
-    $(DEVICE_PATH)/cmhw
-
 # Display
 MAX_EGL_CACHE_KEY_SIZE := 12*1024
 MAX_EGL_CACHE_SIZE := 2048*1024
@@ -108,7 +103,6 @@ TARGET_PROVIDES_LIBLIGHT := true
 
 # Partitions
 TARGET_USERIMAGES_USE_EXT4 := true
-TARGET_USERIMAGES_USE_F2FS := true
 BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_PERSISTIMAGE_FILE_SYSTEM_TYPE := ext4
 # /proc/partitions * 2 * BLOCK_SIZE (512) = size in bytes
@@ -131,25 +125,47 @@ TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
 # Qualcomm support
 BOARD_USES_QC_TIME_SERVICES := true
 BOARD_USES_QCOM_HARDWARE := true
+TARGET_USES_QCOM_BSP := true
+
+TARGET_QCOM_AUDIO_VARIANT := caf-msm8916
+TARGET_QCOM_BLUETOOTH_VARIANT := caf-msm8916
+TARGET_QCOM_DISPLAY_VARIANT := caf-msm8916
+TARGET_QCOM_MEDIA_VARIANT := caf-msm8916
 
 # Recovery
+#TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/etc/fstab.qcom
+#TARGET_RECOVERY_PIXEL_FORMAT := ABGR_8888
+#TARGET_RECOVERY_DENSITY := xhdpi
+
+TWRP_INCLUDE_LOGCAT := true
+TARGET_USES_LOGD := true
 TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/etc/fstab.qcom
-TARGET_RECOVERY_PIXEL_FORMAT := ABGR_8888
-TARGET_RECOVERY_DENSITY := xhdpi
+TW_THEME := portrait_hdpi
+RECOVERY_SDCARD_ON_DATA := true
+TARGET_RECOVERY_QCOM_RTC_FIX := true
+BOARD_SUPPRESS_SECURE_ERASE := true
+RECOVERY_GRAPHICS_USE_LINELENGTH := true
+TARGET_RECOVERY_PIXEL_FORMAT := RGBX_8888
+TWHAVE_SELINUX := true
+BOARD_VOLD_EMMC_SHARES_DEV_MAJOR := true
+TW_INPUT_BLACKLIST := "accelerometer"
+TW_NO_EXFAT_FUSE := true
+TW_INCLUDE_NTFS_3G := true
+TW_INCLUDE_CRYPTO := true
 
 # Release
 TARGET_BOARD_INFO_FILE := $(DEVICE_PATH)/board-info.txt
 
 # Hardware disk encryption (FDE)
 TARGET_HW_DISK_ENCRYPTION := true
+TARGET_CRYPTFS_HW_PATH := $(DEVICE_PATH)/cryptfs_hw
+TARGET_LEGACY_HW_DISK_ENCRYPTION := true
 
 # Release tools
-TARGET_RECOVERY_UPDATER_LIBS := librecovery_updater_kiwi
 TARGET_RELEASETOOLS_EXTENSIONS := $(DEVICE_PATH)/releasetools
 
 # RIL
 BOARD_RIL_CLASS := ../../../device/huawei/kiwi/ril
-TARGET_RIL_VARIANT := caf
 
 # SELinux
 include device/qcom/sepolicy/sepolicy.mk
@@ -174,7 +190,6 @@ BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_qcwcn
 WIFI_DRIVER_FW_PATH_AP := "ap"
 WIFI_DRIVER_FW_PATH_STA := "sta"
 WPA_SUPPLICANT_VERSION := VER_0_8_X
-TARGET_USES_QCOM_WCNSS_QMI := true
 TARGET_USES_WCNSS_CTRL := true
 
 # inherit from the proprietary version

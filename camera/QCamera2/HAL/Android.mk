@@ -50,9 +50,9 @@ endif
 LOCAL_C_INCLUDES := \
         $(LOCAL_PATH)/../stack/common \
         frameworks/native/include/media/openmax \
-        $(call project-path-for,qcom-display)/libgralloc \
-        $(call project-path-for,qcom-display)/libqdutils \
-        $(call project-path-for,qcom-media)/libstagefrighthw \
+        hardware/qcom/media-$(TARGET_QCOM_DISPLAY_VARIANT)/libgralloc \
+        hardware/qcom/media-$(TARGET_QCOM_DISPLAY_VARIANT)/libqdutils \
+        hardware/qcom/media-$(TARGET_QCOM_MEDIA_VARIANT)/libstagefrighthw \
         system/media/camera/include \
         $(LOCAL_PATH)/../../mm-image-codec/qexif \
         $(LOCAL_PATH)/../../mm-image-codec/qomx_core \
@@ -66,14 +66,14 @@ LOCAL_CFLAGS += -DUSE_KK_CODE
 endif
 
 LOCAL_C_INCLUDES += \
-        $(TARGET_OUT_HEADERS)/qcom/display
+        $(TARGET_OUT_HEADERS)/qcom/display-$(TARGET_QCOM_DISPLAY_VARIANT)
 LOCAL_C_INCLUDES += \
-        $(call project-path-for,qcom-display)/libqservice
+        hardware/qcom/media-$(TARGET_QCOM_DISPLAY_VARIANT)/libqservice
 
 #ifeq ($(TARGET_USE_VENDOR_CAMERA_EXT),true)
-#LOCAL_C_INCLUDES += $(call project-path-for,qcom-display)/msm8974/libgralloc
+#LOCAL_C_INCLUDES += hardware/qcom/media-$(TARGET_QCOM_DISPLAY_VARIANT)/msm8974/libgralloc
 #else
-LOCAL_C_INCLUDES += $(call project-path-for,qcom-display)/libgralloc
+LOCAL_C_INCLUDES += hardware/qcom/media-$(TARGET_QCOM_DISPLAY_VARIANT)/libgralloc
 #endif
 LOCAL_C_INCLUDES += $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include
 LOCAL_C_INCLUDES += $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include/media
